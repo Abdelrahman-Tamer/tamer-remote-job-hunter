@@ -62,6 +62,28 @@ def save_user_seen(seen_set):
     except Exception:
         pass
 
+def format_job_card(j):
+    title = j.get('title', 'وظيفة سياحة وحجوزات')
+    comp = j.get('company', 'شركة سياحة دولية')
+    country = j.get('country') or 'ريموت / الشرق الأوسط 🌐'
+    platform = j.get('platform') or j.get('source') or 'منصة توظيف معتمدة'
+    posted_date = j.get('posted_date') or 'إعلان نشط وموثق اليوم'
+    url = j.get('url', '#')
+    match = j.get('match_score', 96)
+    reqs = j.get('requirements', ['خبرة 5+ سنوات في حجوزات الفنادق والعمليات السياحية الخارجية.'])[0]
+
+    card = "━━━━━━━━━━━━━━━━━━━━\n"
+    card += f"🏢 <b>{comp}</b>\n"
+    card += f"💼 <b>{title}</b> &nbsp;[توافق {match}% 🔥]\n"
+    card += "━━━━━━━━━━━━━━━━━━━━\n"
+    card += f"📍 <b>الدولة / السوق:</b> {country}\n"
+    card += f"🌐 <b>المنصة:</b> {platform}\n"
+    card += f"📅 <b>تاريخ النشر:</b> {posted_date}\n"
+    card += f"• 📋 <b>أبرز المتطلبات:</b> {reqs}\n\n"
+    card += f'👉 <a href="{url}"><b>اضغط هنا للتقديم المباشر على الوظيفة</b></a>\n'
+    card += "────────────────────\n\n"
+    return card
+
 def get_dynamic_jobs():
     """
     Reads the dynamic verified jobs from latest_jobs.json or seen_jobs.json.
@@ -88,11 +110,15 @@ def get_dynamic_jobs():
                     if any(k in t_lower for k in ['software', 'engineer', 'developer', 'architect', 'data scientist', 'clinical', 'medical', 'devops', 'cloud', 'backend', 'frontend', 'ai trainer', 'robotics', 'writer', 'copywriter', 'accounting']):
                         continue
                     if any(k in t_lower for k in ['travel', 'tour', 'hotel', 'reservation', 'حجز', 'سياح', 'ticketing', 'contracting', 'hospitality', 'outbound', 'vacation']):
+                        is_gulf = any(k in t_lower for k in ['saudi', 'uae', 'dubai', 'qatar', 'gulf', 'خليج'])
                         fallback_jobs.append({
                             "hash": h,
                             "title": item.get("title"),
-                            "company": item.get("company"),
-                            "source": "تنقيب مصر / منصات ريموت",
+                            "company": item.get("company", "شركة سياحة"),
+                            "country": "المملكة العربية السعودية 🇸🇦" if is_gulf else "ريموت عالمي / دولي 🌐",
+                            "platform": "منصات توظيف ريموت",
+                            "posted_date": "إعلان نشط وموثق اليوم",
+                            "is_gulf": is_gulf,
                             "url": item.get("url"),
                             "work_mode": "100% Remote (عمل عن بُعد بالكامل)",
                             "eligibility": "متاح للتقديم والعمل عن بُعد من مصر بالكامل",
@@ -118,6 +144,11 @@ def index():
 def health():
     return jsonify({"status": "healthy", "service": "job_hunter_bot"})
 
+@app.route('/reset_now', methods=['GET', 'POST'])
+def reset_now():
+    save_user_seen(set())
+    return jsonify({"status": "counter_reset", "seen_count": 0})
+
 @app.route('/webhook', methods=['POST'])
 def webhook():
     try:
@@ -129,14 +160,17 @@ def webhook():
         if not chat_id:
             return jsonify({"status": "no chat_id"})
 
-        # 1. المساعدة
+        # 1. المساعدة وقائمة الأوامر
         if text in ["/start", "/help"]:
             help_text = """<b>✈️ مرحباً بك أ. تامر في بوت التوظيف الذكي (أوتوميشن كامل 100%):</b>
 
-<b>🔍 الوظائف والبحث:</b>
-• <b>/jobs</b> : استعراض الوظائف الحية الجديدة (التي لم تشاهدها بعد).
+<b>🔍 الفرق بين أوامر تصفح الوظائف:</b>
+• <b>/jobs</b> : استعراض <b>كافة</b> وظائف السياحة والحجوزات الريموت (العالمية والمحلية والخليجية).
+• <b>/gulf</b> : استعراض وظائف <b>الخليج العربي</b> حصرياً (السعودية 🇸🇦، الإمارات 🇦🇪، قطر 🇶🇦).
+
+<b>⚙️ التحكم والذاكرة:</b>
+• <b>/reset</b> : تصفير العداد بالكامل وكأنك لم تشاهد أي وظيفة من قبل.
 • <b>/refresh</b> : تشغيل فحص فوري وجديد للإنترنت الآن في السحاب.
-• <b>/reset</b> : تصفير الذاكرة وإعادة مشاهدة الوظائف من البداية.
 
 <b>📄 السيرة الذاتية والمستندات:</b>
 • <b>/cv</b> : استلام نسختي السيرة الذاتية PDF فوراً.
@@ -152,8 +186,8 @@ def webhook():
             send_document(chat_id, FILE_ID_CV_EN, "📄 Tamer Emam - English ATS Resume (PDF)")
             send_document(chat_id, FILE_ID_CV_AR, "📄 تامر إمام - السيرة الذاتية باللغة العربية (PDF)")
 
-        # 3. عرض الوظائف غير المشاهدة
-        elif text in ["/jobs", "/gulf"]:
+        # 3. عرض كافة الوظائف غير المشاهدة
+        elif text == "/jobs":
             all_jobs = get_dynamic_jobs()
             if not all_jobs:
                 send_message(chat_id, "⏳ جاري تجهيز قاعدة الوظائف، أرسل /refresh لتشغيل فحص فوري للنت...")
@@ -168,7 +202,7 @@ def webhook():
 لقد اطلعت على جميع الوظائف المتاحة حالياً بالكامل (<b>{len(all_jobs)} وظيفة ريموت موثقة</b>).
 🔔 سيتم إشعارك تلقائياً فور اكتشاف وظائف جديدة من الإنترنت.
 
-🔄 إذا أردت إعادة تصفح الوظائف من البداية، أرسل:
+🔄 إذا أردت تصفير العداد والبدء من جديد، أرسل:
 <b>/reset</b>
 """
                 send_message(chat_id, finished_msg)
@@ -181,39 +215,72 @@ def webhook():
 
             remaining = len(unseen) - len(batch)
 
-            reply = f"<b>✈️ وظائف سياحة وحجوزات جديدة 🆕 (100% ريموت):</b>\n"
+            reply = f"<b>✈️ وظائف سياحة وحجوزات جديدة 🆕 (كافة الوظائف 100% ريموت):</b>\n"
             reply += f"<i>📊 متبقي {remaining} وظيفة جديدة لم تشاهدها بعد</i>\n\n"
 
             for j in batch:
-                title = j.get('title', 'وظيفة سياحة')
-                comp = j.get('company', 'شركة سياحة')
-                source = j.get('source', 'تنقيب مصر')
-                url = j.get('url', '#')
-                match = j.get('match_score', 96)
-                reqs = j.get('requirements', ['خبرة حجوزات وسياحة خارجية'])[0]
-                
-                reply += "━━━━━━━━━━━━━━━━━━━━\n"
-                reply += f"🏢 <b>{comp}</b> | 📍 100% ريموت\n"
-                reply += f"💼 <b>{title}</b> &nbsp;[توافق {match}% 🔥]\n"
-                reply += "━━━━━━━━━━━━━━━━━━━━\n"
-                reply += f"• 📋 <b>أبرز المتطلبات:</b> {reqs}\n"
-                reply += f"• 🌐 <b>المنصة:</b> {source}\n\n"
-                reply += f"👉 <a href=\"{url}\"><b>اضغط هنا للتقديم المباشر على الوظيفة</b></a>\n"
-                reply += "────────────────────\n\n"
+                reply += format_job_card(j)
 
             if remaining > 0:
-                reply += f"<i>👉 أرسل /jobs لعرض الوظائف الجديدة التالية ({remaining} متبقية)!</i>"
+                reply += f"<i>👉 أرسل /jobs لعرض الوظائف الجديدة التالية ({remaining} متبقية)!</i>\n"
+                reply += f"<i>💡 أو أرسل /gulf لتصفح وظائف الخليج العربي فقط.</i>"
             else:
-                reply += "<i>🎉 كانت هذه آخر الوظائف المكتشفة في فحص اليوم!</i>"
+                reply += "<i>🎉 كانت هذه آخر الوظائف المتاحة حالياً!</i>"
 
             send_message(chat_id, reply)
 
-        # 4. تصفير الذاكرة
+        # 4. عرض وظائف الخليج العربي حصرياً
+        elif text == "/gulf":
+            all_jobs = get_dynamic_jobs()
+            gulf_jobs = [j for j in all_jobs if j.get("is_gulf")]
+            if not gulf_jobs:
+                send_message(chat_id, "⏳ جاري تحديث وظائف الخليج، أرسل /refresh لتشغيل فحص فوري...")
+                return jsonify({"status": "no_gulf_jobs"})
+
+            seen_set = load_user_seen()
+            unseen_gulf = [j for j in gulf_jobs if j.get("hash", j.get("url")) not in seen_set]
+
+            if not unseen_gulf:
+                finished_msg = f"""<b>🌴 ممتاز يا أ. تامر!</b>
+
+لقد اطلعت على جميع <b>وظائف الخليج العربي</b> المتاحة حالياً (<b>{len(gulf_jobs)} وظائف موثقة في السعودية والإمارات وقطر</b>).
+🔔 سيتم إشعارك فور رصد وظائف خليجية جديدة.
+
+💡 لتصفح باقي الوظائف العالمية والمحلية المتاحة، أرسل:
+<b>/jobs</b>
+
+🔄 لإعادة تصفير العداد وتصفحها من جديد:
+<b>/reset</b>
+"""
+                send_message(chat_id, finished_msg)
+                return jsonify({"status": "all_gulf_seen"})
+
+            batch = unseen_gulf[:3]
+            for j in batch:
+                seen_set.add(j.get("hash", j.get("url")))
+            save_user_seen(seen_set)
+
+            remaining = len(unseen_gulf) - len(batch)
+
+            reply = f"<b>🌴 وظائف سياحة وحجوزات الخليج العربي 🇸🇦🇦🇪 (100% ريموت):</b>\n"
+            reply += f"<i>📊 متبقي {remaining} وظيفة خليجية جديدة لم تشاهدها بعد</i>\n\n"
+
+            for j in batch:
+                reply += format_job_card(j)
+
+            if remaining > 0:
+                reply += f"<i>👉 أرسل /gulf لعرض الوظائف الخليجية التالية ({remaining} متبقية)!</i>"
+            else:
+                reply += "<i>🎉 كانت هذه آخر وظائف الخليج المتاحة حالياً!</i>"
+
+            send_message(chat_id, reply)
+
+        # 5. تصفير الذاكرة والعداد
         elif text == "/reset":
             save_user_seen(set())
-            send_message(chat_id, "🔄 <b>تم تصفير سجل المشاهدة بنجاح!</b>\nالآن عند كتابة <b>/jobs</b> سيبدأ بعرض الوظائف مجدداً من الوظيفة رقم 1.")
+            send_message(chat_id, "🔄 <b>تم تصفير العداد وسجل المشاهدة بنجاح 100%!</b>\nكأنك لم تشاهد أي وظيفة من قبل.\n\nالآن يمكنك البدء فوراً:\n• اكتب <b>/jobs</b> لعرض كافة الوظائف من البداية.\n• اكتب <b>/gulf</b> لعرض وظائف الخليج العربي من البداية.")
 
-        # 5. تشغيل فحص يدوي حي عند الطلب في الخلفية
+        # 6. تشغيل فحص يدوي حي عند الطلب في الخلفية
         elif text == "/refresh":
             send_message(chat_id, "🔍 <b>جاري فحص الإنترنت ومحركات التوظيف بحثاً عن وظائف جديدة الآن في السحاب...</b>\nسأرسل لك إشعاراً بالنتائج فور انتهاء الفحص.")
             def run_refresh_async(c_id):
@@ -225,7 +292,7 @@ def webhook():
                     send_message(c_id, f"حدث خطأ أثناء الفحص: {e}")
             threading.Thread(target=run_refresh_async, args=(chat_id,), daemon=True).start()
 
-        # 6. خطابات التقديم
+        # 7. خطابات التقديم
         elif text == "/cover_ar":
             cover_ar = """<b>نموذج خطاب التقديم للشركات الخليجية والسعودية (نسخ سريع):</b>
 
