@@ -144,6 +144,35 @@ def index():
 def health():
     return jsonify({"status": "healthy", "service": "job_hunter_bot"})
 
+@app.route('/trigger_daily_scan', methods=['GET', 'POST'])
+def trigger_daily_scan():
+    def run_scan():
+        try:
+            import fetch_verified_remote_jobs
+            jobs, blocked, total, ts = fetch_verified_remote_jobs.run_pipeline()
+            gulf_count = sum(1 for j in jobs if j.get("is_gulf"))
+            msg = f"""☀️ <b>صباح الخير يا أ. تامر!</b>
+
+⏰ <b>تقرير الفحص الصباحي اليومي (الساعة 9:00 صباحاً بتوقيت القاهرة):</b>
+━━━━━━━━━━━━━━━━━━━━
+🌐 <b>نتائج الفحص التلقائي للإنترنت اليوم:</b>
+• إجمالي المصادر المفحوصة: <b>{total} مصادر</b>
+• الوظائف النشطة والموثقة: <b>{len(jobs)} وظيفة ريموت</b>
+• وظائف الخليج العربي: <b>{gulf_count} وظائف (السعودية والإمارات) 🇸🇦🇦🇪</b>
+━━━━━━━━━━━━━━━━━━━━
+<b>للبدء في تصفح وظائف اليوم الجديدة:</b>
+• أرسل <b>/gulf</b> لاستعراض وظائف الخليج المباشرة.
+• أرسل <b>/jobs</b> لاستعراض كافة الوظائف الدولية والمحلية.
+• أرسل <b>/cv</b> لاستلام السيرة الذاتية PDF فوراً.
+
+<i>نتمنى لك يوماً موفقاً ومليئاً بالفرص المميزة إن شاء الله! ✈️💼</i>"""
+            send_message("7660758855", msg)
+        except Exception as e:
+            print(f"[TRIGGER SCAN ERROR]: {e}", file=sys.stderr)
+            
+    threading.Thread(target=run_scan, daemon=True).start()
+    return jsonify({"status": "daily_scan_triggered"})
+
 @app.route('/reset_now', methods=['GET', 'POST'])
 def reset_now():
     save_user_seen(set())
@@ -358,13 +387,45 @@ def daily_cron_worker():
                 print(f"[CRON] Running daily morning job hunt: {today_str}")
                 last_run_day = today_str
                 import fetch_verified_remote_jobs
-                fetch_verified_remote_jobs.run_pipeline()
+                jobs, blocked, total, ts = fetch_verified_remote_jobs.run_pipeline()
+                
+                # Send Morning Briefing to Tamer Emam
+                gulf_count = sum(1 for j in jobs if j.get("is_gulf"))
+                msg = f"""☀️ <b>صباح الخير يا أ. تامر!</b>
+
+⏰ <b>تقرير الفحص الصباحي اليومي (الساعة 9:00 صباحاً بتوقيت القاهرة):</b>
+━━━━━━━━━━━━━━━━━━━━
+🌐 <b>نتائج الفحص التلقائي للإنترنت اليوم:</b>
+• إجمالي المصادر المفحوصة: <b>{total} مصادر</b>
+• الوظائف النشطة والموثقة: <b>{len(jobs)} وظيفة ريموت</b>
+• وظائف الخليج العربي: <b>{gulf_count} وظائف (السعودية والإمارات) 🇸🇦🇦🇪</b>
+━━━━━━━━━━━━━━━━━━━━
+<b>للبدء في تصفح وظائف اليوم الجديدة:</b>
+• أرسل <b>/gulf</b> لاستعراض وظائف الخليج المباشرة.
+• أرسل <b>/jobs</b> لاستعراض كافة الوظائف الدولية والمحلية.
+• أرسل <b>/cv</b> لاستلام السيرة الذاتية PDF فوراً.
+
+<i>نتمنى لك يوماً موفقاً ومليئاً بالفرص المميزة إن شاء الله! ✈️💼</i>"""
+                send_message("7660758855", msg)
         except Exception as e:
             print(f"[CRON ERROR]: {e}", file=sys.stderr)
         time.sleep(60)
 
+# Keep-alive Pinger (prevents Render free tier from sleeping)
+def keep_alive_pinger():
+    time.sleep(60) # Wait 1 min after startup
+    while True:
+        try:
+            requests.get("https://tamer-remote-job-hunter.onrender.com/health", timeout=10)
+        except Exception:
+            pass
+        time.sleep(600) # Ping every 10 minutes
+
 cron_thread = threading.Thread(target=daily_cron_worker, daemon=True)
 cron_thread.start()
+
+keep_alive_thread = threading.Thread(target=keep_alive_pinger, daemon=True)
+keep_alive_thread.start()
 
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
