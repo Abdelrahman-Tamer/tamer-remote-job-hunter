@@ -172,7 +172,7 @@
     "company": "Veeva Systems",
     "url": "https://weworkremotely.com/remote-jobs/veeva-systems-it-consultant-system-analyst-cloud-crm-remote",
     "first_seen": "2026-11-13 02:17:49",
-    "last_verified": "2026-11-13 02:23:28"
+    "last_verified": "2026-11-20 17:56:04"
   },
   "0280427ddd661c99cfd84bfea5a311e7": {
     "title": "IT Consultant - Solutions Architect - Cloud CRM (Remote)",
@@ -256,7 +256,7 @@
     "company": "Smartsheet",
     "url": "https://weworkremotely.com/remote-jobs/smartsheet-senior-channel-account-manager",
     "first_seen": "2026-11-13 02:17:49",
-    "last_verified": "2026-11-13 02:23:28"
+    "last_verified": "2026-11-20 17:56:04"
   },
   "f4cabb718f9a020e3cf3a479ee0c492a": {
     "title": "Customer Success Representative, Inside",
@@ -270,7 +270,7 @@
     "company": "Jumio",
     "url": "https://weworkremotely.com/remote-jobs/jumio-customer-success-manager-emea",
     "first_seen": "2026-11-13 02:17:49",
-    "last_verified": "2026-11-13 02:23:28"
+    "last_verified": "2026-11-20 17:56:04"
   },
   "2485a2df36ab4977d66d92672ea7aad2": {
     "title": "Lead Intake / CRM Manager",
@@ -305,7 +305,7 @@
     "company": "Virtual Staff 365",
     "url": "https://weworkremotely.com/remote-jobs/virtual-staff-365-csr-admin",
     "first_seen": "2026-11-13 02:17:49",
-    "last_verified": "2026-11-13 02:23:28"
+    "last_verified": "2026-11-20 17:56:04"
   },
   "a0bdea41200732c01162f7be4efc5ef0": {
     "title": "Outbound Wellness Care Representative",
@@ -313,5 +313,75 @@
     "url": "https://weworkremotely.com/remote-jobs/resolv-global-outbound-wellness-care-representative",
     "first_seen": "2026-11-13 02:17:49",
     "last_verified": "2026-11-13 02:23:28"
+  },
+  "a679fac8dff3990732dc2438d6723b6e": {
+    "title": "Account Executive, Mid Market (Southeast)",
+    "company": "Samsara",
+    "url": "https://weworkremotely.com/remote-jobs/samsara-account-executive-mid-market-southeast",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "2f99d8862185a016457291a203755ed2": {
+    "title": "Sales Development Representative - SaaS/IoT Sales, UK & Europe",
+    "company": "Keycafe",
+    "url": "https://weworkremotely.com/remote-jobs/keycafe-sales-development-representative-saas-iot-sales-uk-europe",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "46283316e41383d491261569ada3252c": {
+    "title": "Senior Training Lead",
+    "company": "Chime Financial, Inc",
+    "url": "https://weworkremotely.com/remote-jobs/chime-financial-inc-senior-training-lead",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "a1492f3dfaa3dea5b706b8c7e312ccaa": {
+    "title": "Senior CRM Account Executive",
+    "company": "ServiceNow",
+    "url": "https://weworkremotely.com/remote-jobs/servicenow-senior-crm-account-executive",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "433898ef375ff8fe1e307595c04827f6": {
+    "title": "Senior Solutions Consultant",
+    "company": "Forter",
+    "url": "https://weworkremotely.com/remote-jobs/forter-senior-solutions-consultant",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "420df5f831d81ea1fa1670a97a81852a": {
+    "title": "Customer Success Manager",
+    "company": "Expensify",
+    "url": "https://weworkremotely.com/remote-jobs/expensify-customer-success-manager",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "5e37937d9e2dd174403109e138c990bd": {
+    "title": "Facility Security Officer",
+    "company": "Cribl",
+    "url": "https://weworkremotely.com/remote-jobs/cribl-facility-security-officer",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "cf20e54d534390c9c8505fdf3923f946": {
+    "title": "Americas Sales Business Partner Manager",
+    "company": "Twilio",
+    "url": "https://weworkremotely.com/remote-jobs/twilio-americas-sales-business-partner-manager",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "4ee7b9b41c990e9a699c9de452b40cac": {
+    "title": "Director of Security Research, Cribl Detect",
+    "company": "Cribl",
+    "url": "https://weworkremotely.com/remote-jobs/cribl-director-of-security-research-cribl-detect",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
+  },
+  "e3b71c6dfe1a69964db0c13fa15ac006": {
+    "title": "Bilingual CX Specialist (French)",
+    "company": "Instacart",
+    "url": "https://weworkremotely.com/remote-jobs/instacart-bilingual-cx-specialist-french",
+    "first_seen": "2026-11-20 17:56:04",
+    "last_verified": "2026-11-20 17:56:04"
   }
 }
