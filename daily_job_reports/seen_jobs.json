@@ -172,7 +172,7 @@
     "company": "Veeva Systems",
     "url": "https://weworkremotely.com/remote-jobs/veeva-systems-it-consultant-system-analyst-cloud-crm-remote",
     "first_seen": "2026-11-13 02:17:49",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "0280427ddd661c99cfd84bfea5a311e7": {
     "title": "IT Consultant - Solutions Architect - Cloud CRM (Remote)",
@@ -256,7 +256,7 @@
     "company": "Smartsheet",
     "url": "https://weworkremotely.com/remote-jobs/smartsheet-senior-channel-account-manager",
     "first_seen": "2026-11-13 02:17:49",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "f4cabb718f9a020e3cf3a479ee0c492a": {
     "title": "Customer Success Representative, Inside",
@@ -305,7 +305,7 @@
     "company": "Virtual Staff 365",
     "url": "https://weworkremotely.com/remote-jobs/virtual-staff-365-csr-admin",
     "first_seen": "2026-11-13 02:17:49",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "a0bdea41200732c01162f7be4efc5ef0": {
     "title": "Outbound Wellness Care Representative",
@@ -340,7 +340,7 @@
     "company": "ServiceNow",
     "url": "https://weworkremotely.com/remote-jobs/servicenow-senior-crm-account-executive",
     "first_seen": "2026-11-20 17:56:04",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "433898ef375ff8fe1e307595c04827f6": {
     "title": "Senior Solutions Consultant",
@@ -354,7 +354,7 @@
     "company": "Expensify",
     "url": "https://weworkremotely.com/remote-jobs/expensify-customer-success-manager",
     "first_seen": "2026-11-20 17:56:04",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "5e37937d9e2dd174403109e138c990bd": {
     "title": "Facility Security Officer",
@@ -459,7 +459,7 @@
     "company": "Smartsheet",
     "url": "https://weworkremotely.com/remote-jobs/smartsheet-engagement-manager",
     "first_seen": "2026-11-21 17:08:02",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "a46e9fd5f294f19cd9580cf5a6613b61": {
     "title": "Fraud Analyst, Secured Lending",
@@ -536,7 +536,7 @@
     "company": "Tines",
     "url": "https://weworkremotely.com/remote-jobs/tines-paralegal",
     "first_seen": "2026-11-22 17:05:15",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "35fd80fbf935ae540b4aa83f0f3f9989": {
     "title": "Account Executive - In-Territory (Los Angeles, CA)",
@@ -592,7 +592,7 @@
     "company": "Alliants Limited",
     "url": "https://weworkremotely.com/remote-jobs/alliants-limited-customer-success-executive-apac-middle-east",
     "first_seen": "2026-11-23 21:00:14",
-    "last_verified": "2026-11-23 21:00:14"
+    "last_verified": "2026-11-24 20:40:40"
   },
   "29a1efce9363638b9484cfc973c6eef3": {
     "title": "Director, Strategic AI Partnerships",
@@ -628,5 +628,68 @@
     "url": "https://weworkremotely.com/remote-jobs/celonis-client-value-partner",
     "first_seen": "2026-11-23 21:00:14",
     "last_verified": "2026-11-23 21:00:14"
+  },
+  "6873eeaec9cdb5d5d614b03ff502b5f6": {
+    "title": "Pricing and Packaging Insights Lead",
+    "company": "LaunchDarkly",
+    "url": "https://weworkremotely.com/remote-jobs/launchdarkly-pricing-and-packaging-insights-lead",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "3b119a1cd92b933505770473d19f22f2": {
+    "title": "Senior Channel Account Manager",
+    "company": "Fastly",
+    "url": "https://weworkremotely.com/remote-jobs/fastly-senior-channel-account-manager",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "1ef3f1492b0f18dab26156b71e787dc5": {
+    "title": "Director, Sales - SLED",
+    "company": "Ping Identity",
+    "url": "https://weworkremotely.com/remote-jobs/ping-identity-director-sales-sled",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "7adf249a88ca113ab7c5a1ebb26a555a": {
+    "title": "Senior Employment Counsel",
+    "company": "ZoomInfo Technologies LLC",
+    "url": "https://weworkremotely.com/remote-jobs/zoominfo-technologies-llc-senior-employment-counsel",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "f1c9a5789f7f31e93da5e1405e412b98": {
+    "title": "General Accountant - Accounts Payable",
+    "company": "Upsun",
+    "url": "https://weworkremotely.com/remote-jobs/upsun-general-accountant-accounts-payable",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "82a370b1a526587e0ae7d4b84abb5117": {
+    "title": "Digital Sales Representative",
+    "company": "Twilio",
+    "url": "https://weworkremotely.com/remote-jobs/twilio-digital-sales-representative",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "cc72eedee36fcef8644e7ee2bfe7cd55": {
+    "title": "Enterprise Account Executive III",
+    "company": "Sumo Logic",
+    "url": "https://weworkremotely.com/remote-jobs/sumo-logic-enterprise-account-executive-iii",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "bb46b96045c7cfaafc03c50102c094be": {
+    "title": "Workflow Consultant & Trainer",
+    "company": "Elation Health",
+    "url": "https://weworkremotely.com/remote-jobs/elation-health-workflow-consultant-trainer",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
+  },
+  "b938e542ed745a359df0350084d63770": {
+    "title": "Senior Customer Success Manager, Strategic",
+    "company": "Customer.io",
+    "url": "https://weworkremotely.com/remote-jobs/customer-io-senior-customer-success-manager-strategic",
+    "first_seen": "2026-11-24 20:40:40",
+    "last_verified": "2026-11-24 20:40:40"
   }
 }
